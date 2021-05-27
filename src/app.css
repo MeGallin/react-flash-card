@@ -1,5 +1,12 @@
 body {
   background-color: lightgrey;
+  font-family: 'Signika', sans-serif;
+  font-family: 'Comfortaa', cursive;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-size: 16px;
   margin: 0;
 }
 
@@ -34,7 +41,6 @@ body {
   background-color: hsl(200, 100%, 50%);
   color: white;
   padding: 0.5em 1em;
-  border-radius: 0.3em;
   border: none;
   cursor: pointer;
 }
@@ -55,7 +61,6 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  border-radius: 0.25rem;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
   background-color: white;
   transform-style: preserve-3d;
@@ -93,4 +98,17 @@ body {
 }
 .flashcard-option:first-child {
   margin-top: 0;
+}
+
+footer {
+  background-color: white;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
