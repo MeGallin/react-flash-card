@@ -1,10 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import FlashCardList from "./FlashCardList";
 import "./app.css";
 import axios from "axios";
 
 function App() {
   const [flashcards, setFlashCards] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const categoryEl = useRef();
+  const amountEl = useRef();
+
+  useEffect(() => {
+    axios.get("https://opentdb.com/api_category.php").then((res) => {
+      // console.log(res.data);
+      setCategories(res.data.trivia_categories);
+    });
+  }, []);
 
   useEffect(() => {
     axios.get("https://opentdb.com/api.php?amount=10").then((res) => {
@@ -32,10 +43,44 @@ function App() {
     return textArea.value;
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
   return (
-    <div className="container">
-      <FlashCardList flashcards={flashcards}></FlashCardList>
-    </div>
+    <Fragment>
+      <form className="header" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="category">Category</label>
+          <select id="category" ref={categoryEl}>
+            {categories.map((category) => {
+              return (
+                <option value={category.id} key={category.id}>
+                  {category.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      </form>
+      <div className="form-group">
+        <label htmlFor="amount">Number of Questions</label>
+        <input
+          type="number"
+          id="amount"
+          min="1"
+          step="1"
+          defaultValue={10}
+          ref={amountEl}
+        />
+      </div>
+      <div className="form-group">
+        <button className="btn">Generate</button>
+      </div>
+      <div className="container">
+        <FlashCardList flashcards={flashcards}></FlashCardList>
+      </div>
+    </Fragment>
   );
 }
 
